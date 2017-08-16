@@ -1,0 +1,29 @@
+﻿<Window x:Class="Cart_v0._0.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cart_v0._0"
+        xmlns:integration="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="150"/>
+            <ColumnDefinition Width="0"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Button x:Name="OpenFile" Margin="5,5,5,5" Height="30" Content="Обзор" Click="OpenFile_Click" />
+            <TextBox x:Name="TextBox1" Margin="5,5,5,5" Height="90" TextWrapping="Wrap"/>
+            <Button x:Name="ButtonSuka" Margin="5,5,5,5" Height="30" Content="Button" Click="ButtonSuka_Click" />
+            <TextBlock x:Name="MainText" Height="90" Margin="5,5,5,5" Text=""/>
+        </StackPanel>
+        <DataGrid x:Name="DataGridExcelTable" Grid.Column="1" Margin="5,5,5,5" >
+
+        </DataGrid>
+        <Grid Name="grid1" Margin="5,5,5,5" Grid.Column="2">
+            
+        </Grid>
+    </Grid>
+</Window>
