@@ -93,9 +93,9 @@ namespace Cart_v0._0
             this.grid1.Children.Add(host);
         }
 
-        List<string> headers = new List<string>();
-        List<List<string>> data = new List<List<string>>();
-        List<string> resuts = new List<string>();
+        List<entity.Headers> headers = new List<entity.Headers>();
+        List<entity.Data> data = new List<entity.Data>();
+        List<entity.Results> resuts = new List<entity.Results>();
 
         private void SelectHeaders_Click(object sender, RoutedEventArgs e)
         {
@@ -104,51 +104,16 @@ namespace Cart_v0._0
                     if (dgv[j, i].Style.BackColor == System.Drawing.Color.LightBlue)
                         dgv[j, i].Style.BackColor = System.Drawing.Color.White; 
 
-            headers = new List<string>();
-            MainText.Text = "";
+            headers = new List<entity.Headers>();
+            headerstext.Text = "";
             Int32 selectedCellCount = dgv.GetCellCount(DataGridViewElementStates.Selected);
             if (selectedCellCount > 0)
             {
                 for (int i = selectedCellCount-1; i >= 0 ; i--)
                 {
                     dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Style.BackColor = System.Drawing.Color.LightBlue;
-                    headers.Add(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString());
-                    MainText.Text += dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString()+"\n";
-                }
-            }
-        }
-
-        private void SelectData_Click(object sender, RoutedEventArgs e)
-        {
-            for (int i = 0; i < dgv.RowCount; i++)
-                for (int j = 0; j < dgv.ColumnCount; j++)
-                    if(dgv[j, i].Style.BackColor== System.Drawing.Color.LightGreen)
-                        dgv[j, i].Style.BackColor = System.Drawing.Color.White; 
-
-            data = new List<List<string>>();
-            Int32 selectedCellCount = dgv.GetCellCount(DataGridViewElementStates.Selected);
-            List<string> hash = new List<string>();
-
-            MainText.Text = "";
-            if (selectedCellCount > 0)
-            {
-                for (int i = selectedCellCount-1; i >= 0; i--)
-                {
-                    if(i< selectedCellCount - 1)
-                        if (dgv.SelectedCells[i].RowIndex!= dgv.SelectedCells[i+1].RowIndex) {
-                            data.Add(hash);
-                            hash = new List<string>();
-                            MainText.Text += ";\n";
-                        }
-                    dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Style.BackColor = System.Drawing.Color.LightGreen;
-                    hash.Add(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString());
-                    MainText.Text += dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString() + ", ";
-                    if (i == 0)
-                    {
-                        data.Add(hash);
-                        hash = new List<string>();
-                        MainText.Text += ";\n";
-                    }
+                    headers.Add(new entity.Headers(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString()));
+                    headerstext.Text += dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString()+"\n";
                 }
             }
         }
@@ -160,16 +125,53 @@ namespace Cart_v0._0
                     if (dgv[j, i].Style.BackColor == System.Drawing.Color.LightCyan)
                         dgv[j, i].Style.BackColor = System.Drawing.Color.White;
 
-            resuts = new List<string>();
-            MainText.Text = "";
+            resuts = new List<entity.Results>();
+            resultstext.Text = "";
             Int32 selectedCellCount = dgv.GetCellCount(DataGridViewElementStates.Selected);
             if (selectedCellCount > 0)
             {
                 for (int i = selectedCellCount - 1; i >= 0; i--)
                 {
                     dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Style.BackColor = System.Drawing.Color.LightCyan;
-                    resuts.Add(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString());
-                    MainText.Text += dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString() + " ";
+                    resuts.Add(new entity.Results(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString()));
+                    resultstext.Text += dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString() + ";\n";
+                }
+            }
+        }
+
+        private void SelectData_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < dgv.RowCount; i++)
+                for (int j = 0; j < dgv.ColumnCount; j++)
+                    if (dgv[j, i].Style.BackColor == System.Drawing.Color.LightGreen)
+                        dgv[j, i].Style.BackColor = System.Drawing.Color.White;
+
+            data = new List<entity.Data>();
+            Int32 selectedCellCount = dgv.GetCellCount(DataGridViewElementStates.Selected);
+            List<string> hash = new List<string>();
+
+            datatext.Text = "";
+            if (selectedCellCount > 0)
+            {
+                for (int i = selectedCellCount - 1; i >= 0; i--)
+                {
+                    if (i < selectedCellCount - 1)
+                        if (dgv.SelectedCells[i].ColumnIndex != dgv.SelectedCells[i + 1].ColumnIndex)
+                        {
+                            data.Add(new entity.Data(headers[dgv.SelectedCells[i + 1].ColumnIndex], hash));
+                            hash = new List<string>();
+                            //datatext.Text += "\n"+ resuts[dgv.SelectedCells[i-1].RowIndex].GetNameResult() + ";\n";
+                        }
+                    dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Style.BackColor = System.Drawing.Color.LightGreen;
+                    hash.Add(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString());
+                    datatext.Text += dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString() + ", ";
+                    if (i == 0)
+                    {
+                        data.Add(new entity.Data(headers[dgv.SelectedCells[i + 1].ColumnIndex], hash));
+                        hash = new List<string>();
+                        //datatext.Text += "\n" + resuts[dgv.SelectedCells[i+1].RowIndex].GetNameResult() + ";\n";
+                        
+                    }
                 }
             }
         }
@@ -177,7 +179,6 @@ namespace Cart_v0._0
         private void CreateTree_Click(object sender, RoutedEventArgs e)
         {
             Cart cart = new Cart(headers, data, resuts);
-            cart.DataInHeader(2);
         }
 
         private void DgvColorClear() {

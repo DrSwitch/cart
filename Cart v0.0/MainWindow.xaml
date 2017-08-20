@@ -6,25 +6,25 @@
         xmlns:local="clr-namespace:Cart_v0._0"
         xmlns:integration="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+        Title="MainWindow" Height="450" Width="620" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>
-            <ColumnDefinition Width="0"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
             <Button x:Name="OpenFile" Margin="5,5,5,5" Height="30" Content="Обзор" Click="OpenFile_Click" />
             <Button x:Name="SelectHeaders" Margin="5,5,5,5" Height="30" Content="Выбрать заголовки" Click="SelectHeaders_Click" />
-            <Button x:Name="SelectData" Margin="5,5,5,5" Height="30" Content="Выбрать данные" Click="SelectData_Click" />
             <Button x:Name="SelectResults" Margin="5,5,5,5" Height="30" Content="Выбрать результаты" Click="SelectResults_Click" />
+            <Button x:Name="SelectData" Margin="5,5,5,5" Height="30" Content="Выбрать данные" Click="SelectData_Click" />
             <Button x:Name="CreateTree" Margin="5,5,5,5" Height="30" Content="Построить дерево" Click="CreateTree_Click" />
-
-            <TextBlock x:Name="MainText" Height="200" Margin="5,5,5,5" Text=""/>
         </StackPanel>
-        <DataGrid x:Name="DataGridExcelTable" Grid.Column="1" Margin="5,5,5,5" >
-
-        </DataGrid>
+        <StackPanel Grid.Column="1">
+            <TextBlock x:Name="headerstext" Height="120" Margin="5,5,5,5" Text=""/>
+            <TextBlock x:Name="resultstext" Height="120" Margin="5,5,5,5" Text=""/>
+            <TextBlock x:Name="datatext" Height="120" Margin="5,5,5,5" Text=""/>
+        </StackPanel>
         <Grid Name="grid1" Margin="5,5,5,5" Grid.Column="2">
             
         </Grid>
