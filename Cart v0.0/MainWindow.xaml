@@ -15,8 +15,11 @@
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
             <Button x:Name="OpenFile" Margin="5,5,5,5" Height="30" Content="Обзор" Click="OpenFile_Click" />
-            <TextBox x:Name="TextBox1" Margin="5,5,5,5" Height="90" TextWrapping="Wrap"/>
-            <Button x:Name="ButtonSuka" Margin="5,5,5,5" Height="30" Content="Button" Click="ButtonSuka_Click" />
+            <Button x:Name="SelectHeaders" Margin="5,5,5,5" Height="30" Content="Выбрать заголовки" Click="SelectHeaders_Click" />
+            <Button x:Name="SelectData" Margin="5,5,5,5" Height="30" Content="Выбрать данные" Click="SelectData_Click" />
+            <Button x:Name="SelectResults" Margin="5,5,5,5" Height="30" Content="Выбрать результаты" Click="SelectResults_Click" />
+            <Button x:Name="CreateTree" Margin="5,5,5,5" Height="30" Content="Построить дерево" Click="CreateTree_Click" />
+
             <TextBlock x:Name="MainText" Height="90" Margin="5,5,5,5" Text=""/>
         </StackPanel>
         <DataGrid x:Name="DataGridExcelTable" Grid.Column="1" Margin="5,5,5,5" >

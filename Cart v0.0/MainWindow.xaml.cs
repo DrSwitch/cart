@@ -37,7 +37,7 @@ namespace Cart_v0._0
             bt.Add(99);
             
         }
-
+        
         private Microsoft.Office.Interop.Excel.Application ExcelApp;
         private Microsoft.Office.Interop.Excel.Workbook WorkBookExcel;
         private Microsoft.Office.Interop.Excel.Worksheet WorkSheetExcel;
@@ -45,6 +45,7 @@ namespace Cart_v0._0
 
         private void OpenFile_Click(object sender, RoutedEventArgs e)
         {
+            DgvColorClear();
             OpenFileDialog fd = new OpenFileDialog();
             fd.Filter = "Файл Excel|*.XLSX;*.XLS";
             if (fd.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
@@ -90,6 +91,93 @@ namespace Cart_v0._0
             dgv.ReadOnly = true;
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             this.grid1.Children.Add(host);
+        }
+
+        List<string> headers = new List<string>();
+        List<List<string>> data = new List<List<string>>();
+        List<string> resuts = new List<string>();
+
+        private void SelectHeaders_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < dgv.RowCount; i++)
+                for (int j = 0; j < dgv.ColumnCount; j++)
+                    if (dgv[j, i].Style.BackColor == System.Drawing.Color.LightBlue)
+                        dgv[j, i].Style.BackColor = System.Drawing.Color.White; 
+
+            headers = new List<string>();
+            MainText.Text = "";
+            Int32 selectedCellCount = dgv.GetCellCount(DataGridViewElementStates.Selected);
+            if (selectedCellCount > 0)
+            {
+                for (int i = selectedCellCount-1; i >= 0 ; i--)
+                {
+                    dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Style.BackColor = System.Drawing.Color.LightBlue;
+                    headers.Add(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString());
+                    MainText.Text += dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString()+" ";
+                }
+            }
+        }
+
+        private void SelectData_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < dgv.RowCount; i++)
+                for (int j = 0; j < dgv.ColumnCount; j++)
+                    if(dgv[j, i].Style.BackColor== System.Drawing.Color.LightGreen)
+                        dgv[j, i].Style.BackColor = System.Drawing.Color.White; 
+
+            data = new List<List<string>>();
+            Int32 selectedCellCount = dgv.GetCellCount(DataGridViewElementStates.Selected);
+            List<string> hash = new List<string>();
+
+            MainText.Text = "";
+            if (selectedCellCount > 0)
+            {
+                for (int i = selectedCellCount-1; i >= 0; i--)
+                {
+                    if(i< selectedCellCount - 1)
+                        if (dgv.SelectedCells[i].RowIndex!= dgv.SelectedCells[i+1].RowIndex) {
+                            data.Add(hash);
+                            hash = new List<string>();
+                            MainText.Text += ";\n";
+                        }
+                    dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Style.BackColor = System.Drawing.Color.LightGreen;
+                    hash.Add(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString());
+                    MainText.Text += dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString() + ", ";
+                }
+            }
+        }
+
+        private void SelectResults_Click(object sender, RoutedEventArgs e)
+        {
+            for (int i = 0; i < dgv.RowCount; i++)
+                for (int j = 0; j < dgv.ColumnCount; j++)
+                    if (dgv[j, i].Style.BackColor == System.Drawing.Color.LightCyan)
+                        dgv[j, i].Style.BackColor = System.Drawing.Color.White;
+
+            resuts = new List<string>();
+            MainText.Text = "";
+            Int32 selectedCellCount = dgv.GetCellCount(DataGridViewElementStates.Selected);
+            if (selectedCellCount > 0)
+            {
+                for (int i = selectedCellCount - 1; i >= 0; i--)
+                {
+                    dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Style.BackColor = System.Drawing.Color.LightCyan;
+                    resuts.Add(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString());
+                    MainText.Text += dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString() + " ";
+                }
+            }
+        }
+
+        private void CreateTree_Click(object sender, RoutedEventArgs e)
+        {
+            
+        }
+
+        private void DgvColorClear() {
+            for (int i = 0; i < dgv.RowCount; i++)
+                for (int j = 0; j < dgv.ColumnCount; j++)
+                        dgv[j,i].Style.BackColor = System.Drawing.Color.White; //FFADD8E6
+
         }
     }
 }
