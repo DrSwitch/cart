@@ -113,7 +113,7 @@ namespace Cart_v0._0
                 {
                     dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Style.BackColor = System.Drawing.Color.LightBlue;
                     headers.Add(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString());
-                    MainText.Text += dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString()+" ";
+                    MainText.Text += dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString()+"\n";
                 }
             }
         }
@@ -143,6 +143,12 @@ namespace Cart_v0._0
                     dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Style.BackColor = System.Drawing.Color.LightGreen;
                     hash.Add(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString());
                     MainText.Text += dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString() + ", ";
+                    if (i == 0)
+                    {
+                        data.Add(hash);
+                        hash = new List<string>();
+                        MainText.Text += ";\n";
+                    }
                 }
             }
         }
@@ -170,14 +176,14 @@ namespace Cart_v0._0
 
         private void CreateTree_Click(object sender, RoutedEventArgs e)
         {
-            
+            Cart cart = new Cart(headers, data, resuts);
+            cart.DataInHeader(2);
         }
 
         private void DgvColorClear() {
             for (int i = 0; i < dgv.RowCount; i++)
                 for (int j = 0; j < dgv.ColumnCount; j++)
                         dgv[j,i].Style.BackColor = System.Drawing.Color.White; //FFADD8E6
-
         }
     }
 }

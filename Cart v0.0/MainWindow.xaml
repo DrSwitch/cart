@@ -20,7 +20,7 @@
             <Button x:Name="SelectResults" Margin="5,5,5,5" Height="30" Content="Выбрать результаты" Click="SelectResults_Click" />
             <Button x:Name="CreateTree" Margin="5,5,5,5" Height="30" Content="Построить дерево" Click="CreateTree_Click" />
 
-            <TextBlock x:Name="MainText" Height="90" Margin="5,5,5,5" Text=""/>
+            <TextBlock x:Name="MainText" Height="200" Margin="5,5,5,5" Text=""/>
         </StackPanel>
         <DataGrid x:Name="DataGridExcelTable" Grid.Column="1" Margin="5,5,5,5" >
 
