@@ -63,8 +63,13 @@ namespace Cart_v0._0
                 dgv.ColumnCount = (int)lastCell.Column;
 
                 for (int i = 0; i < (int)lastCell.Column; i++) {
-                    for (int j = 0; j < (int)lastCell.Row; j++) {          
-                        dgv.Rows[j].Cells[i].Value = WorkSheetExcel.Cells[j + 1, i + 1].Text.ToString(); 
+                    for (int j = 0; j < (int)lastCell.Row; j++) {
+                        if (j == 0) {
+                            dgv.Columns[i].HeaderText = WorkSheetExcel.Cells[j + 1, i + 1].Text.ToString();
+                        }
+                        else {
+                            dgv.Rows[j-1].Cells[i].Value = WorkSheetExcel.Cells[j + 1, i + 1].Text.ToString();
+                        }
                     }
                 }
 
@@ -83,7 +88,7 @@ namespace Cart_v0._0
                 new System.Windows.Forms.Integration.WindowsFormsHost();
 
             host.Child = dgv;
-            dgv.ColumnHeadersVisible = false;
+            dgv.ColumnHeadersVisible = true;
             dgv.RowHeadersVisible = false;
             dgv.AllowUserToDeleteRows = false;
             dgv.AllowUserToAddRows = false;
@@ -95,7 +100,7 @@ namespace Cart_v0._0
 
         List<entity.Headers> headers = new List<entity.Headers>();
         List<entity.Data> data = new List<entity.Data>();
-        List<entity.Results> resuts = new List<entity.Results>();
+        List<string> resuts = new List<string>();
 
         private void SelectHeaders_Click(object sender, RoutedEventArgs e)
         {
@@ -125,7 +130,7 @@ namespace Cart_v0._0
                     if (dgv[j, i].Style.BackColor == System.Drawing.Color.LightCyan)
                         dgv[j, i].Style.BackColor = System.Drawing.Color.White;
 
-            resuts = new List<entity.Results>();
+            resuts = new List<string>();
             resultstext.Text = "";
             Int32 selectedCellCount = dgv.GetCellCount(DataGridViewElementStates.Selected);
             if (selectedCellCount > 0)
@@ -133,7 +138,7 @@ namespace Cart_v0._0
                 for (int i = selectedCellCount - 1; i >= 0; i--)
                 {
                     dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Style.BackColor = System.Drawing.Color.LightCyan;
-                    resuts.Add(new entity.Results(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString()));
+                    resuts.Add(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString());
                     resultstext.Text += dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString() + ";\n";
                 }
             }
@@ -160,7 +165,7 @@ namespace Cart_v0._0
                         {
                             data.Add(new entity.Data(headers[dgv.SelectedCells[i + 1].ColumnIndex], hash));
                             hash = new List<string>();
-                            //datatext.Text += "\n"+ resuts[dgv.SelectedCells[i-1].RowIndex].GetNameResult() + ";\n";
+                            datatext.Text += "\n"+ headers[dgv.SelectedCells[i + 1].ColumnIndex].GetNameHeader() + ";\n";
                         }
                     dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Style.BackColor = System.Drawing.Color.LightGreen;
                     hash.Add(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString());
@@ -169,7 +174,7 @@ namespace Cart_v0._0
                     {
                         data.Add(new entity.Data(headers[dgv.SelectedCells[i + 1].ColumnIndex], hash));
                         hash = new List<string>();
-                        //datatext.Text += "\n" + resuts[dgv.SelectedCells[i+1].RowIndex].GetNameResult() + ";\n";
+                        datatext.Text += "\n" + headers[dgv.SelectedCells[i + 1].ColumnIndex].GetNameHeader() + ";\n";
                         
                     }
                 }
@@ -179,6 +184,7 @@ namespace Cart_v0._0
         private void CreateTree_Click(object sender, RoutedEventArgs e)
         {
             Cart cart = new Cart(headers, data, resuts);
+
         }
 
         private void DgvColorClear() {
