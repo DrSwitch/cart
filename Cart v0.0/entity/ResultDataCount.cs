@@ -9,11 +9,10 @@ namespace Cart_v0._0.entity
     class ResultDataCount
     {
         string result;
-        List<int> count = new List<int>();
+        
 
-        public ResultDataCount(string result, List<int> count) {
+        public ResultDataCount(string result) {
             this.result = result;
-            this.count = count;
         }
 
     }
