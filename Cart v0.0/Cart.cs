@@ -9,11 +9,11 @@ namespace Cart_v0._0
 {
     class Cart
     {
-        List<entity.Headers> headers = new List<entity.Headers>();
+        List<entity.Header> headers = new List<entity.Header>();
         List<entity.Data> data = new List<entity.Data>();
         List<string> resuts = new List<string>();
 
-        public Cart(List<entity.Headers> headers, List<entity.Data> data, List<string> resuts)
+        public Cart(List<entity.Header> headers, List<entity.Data> data, List<string> resuts)
         {
             this.headers = headers;
             this.data = data;
@@ -24,21 +24,19 @@ namespace Cart_v0._0
         public void CreateTree() {
             List<string> dataInHeader = new List<string>();
             List<string> distinctResult = SelectDistinctInColumn(resuts);
-
+            entity.MaxDifference maxdiff = new entity.MaxDifference(null, 0, 0, 0, "", "");
             for (int i = 0; i < headers.Count-1; i++) {
                 dataInHeader = new List<string>();
-                int maxDifference=0;
-                int headerMaxDifference=0;
                 dataInHeader = data[i].DataInColumn();
 
                 List<string> distinctData = SelectDistinctInColumn(dataInHeader);
-                List<entity.ResultDataCount> diff = new List<entity.ResultDataCount>();
                 List<int> hash = new List<int>();
                 string mess=headers[i].GetNameHeader()+"\n";
                 
                 for (int k = 0; k < distinctData.Count; k++) {
-                    string mess2 = "";
                     int count2 = 0;
+                    
+                    int diff = 0;
                     for (int j = 0; j < distinctResult.Count; j++) {
                         int count = 0;
                         for (int n = 0; n < dataInHeader.Count; n++) {
@@ -47,15 +45,19 @@ namespace Cart_v0._0
                             }
                         }
                         mess += "Количество " + distinctResult[j] + " в " + distinctData[k] +" = "+ count + "\n";
-                        if(j==0) count2 = count;
+                        if (j == 0) {
+                            count2 = count;
+                            
+                        }
                         if (j == 1) {
-                            mess2 += Math.Abs(count - count2);
-                            mess += "Разница="+ count + "и"+count2+"="+mess2+"\n";
+                            diff = Math.Abs(count - count2);
+                            if (maxdiff.GetDifference() < diff) maxdiff = new entity.MaxDifference(headers[i], diff, count, count2, distinctResult[0], distinctResult[1]); 
+                            mess += "Разница "+ count + " и "+count2+" = "+ diff + "\n";
                         }
                     }
                     
                 }
-                MessageBox.Show(mess);
+                MessageBox.Show(mess+"\nМакс. разница ="+maxdiff.GetDifference());
             }
         }
 

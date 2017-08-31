@@ -10,10 +10,10 @@ namespace Cart_v0._0.entity
 {
     class Data
     {
-        Headers header;
+        Header header;
         List<string> data;
 
-        public Data(Headers header, List<string> data) {
+        public Data(Header header, List<string> data) {
             this.header = header;
             this.data = data;
         }

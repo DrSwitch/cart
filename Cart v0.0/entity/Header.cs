@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Cart_v0._0.entity
 {
-    class Headers
+    class Header
     {
         string nameHeader;
 
-        public Headers(string name) {
+        public Header(string name) {
             this.nameHeader = name;
         }
 

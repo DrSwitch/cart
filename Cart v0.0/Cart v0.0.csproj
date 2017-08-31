@@ -72,8 +72,8 @@
     <Compile Include="BinaryTree.cs" />
     <Compile Include="Cart.cs" />
     <Compile Include="entity\Data.cs" />
-    <Compile Include="entity\Headers.cs" />
-    <Compile Include="entity\ResultDataCount.cs" />
+    <Compile Include="entity\Header.cs" />
+    <Compile Include="entity\MaxDifference.cs" />
     <Compile Include="entity\Results.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

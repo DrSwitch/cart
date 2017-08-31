@@ -98,7 +98,7 @@ namespace Cart_v0._0
             this.grid1.Children.Add(host);
         }
 
-        List<entity.Headers> headers = new List<entity.Headers>();
+        List<entity.Header> headers = new List<entity.Header>();
         List<entity.Data> data = new List<entity.Data>();
         List<string> resuts = new List<string>();
 
@@ -109,7 +109,7 @@ namespace Cart_v0._0
                     if (dgv[j, i].Style.BackColor == System.Drawing.Color.LightBlue)
                         dgv[j, i].Style.BackColor = System.Drawing.Color.White; 
 
-            headers = new List<entity.Headers>();
+            headers = new List<entity.Header>();
             headerstext.Text = "";
             Int32 selectedCellCount = dgv.GetCellCount(DataGridViewElementStates.Selected);
             if (selectedCellCount > 0)
@@ -117,7 +117,7 @@ namespace Cart_v0._0
                 for (int i = selectedCellCount-1; i >= 0 ; i--)
                 {
                     dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Style.BackColor = System.Drawing.Color.LightBlue;
-                    headers.Add(new entity.Headers(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString()));
+                    headers.Add(new entity.Header(dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString()));
                     headerstext.Text += dgv[dgv.SelectedCells[i].ColumnIndex, dgv.SelectedCells[i].RowIndex].Value.ToString()+"\n";
                 }
             }
