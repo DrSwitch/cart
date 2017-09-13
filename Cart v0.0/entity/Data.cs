@@ -29,5 +29,9 @@ namespace Cart_v0._0.entity
         {
             return data[indexRow];
         }
+
+        public Header GetHeader() {
+            return this.header;
+        }
     }
 }

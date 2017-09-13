@@ -9,33 +9,54 @@ namespace Cart_v0._0.entity
     class MaxDifference
     {
         Header header;
+        List<string> datainheader;
         int difference=0;
         int leftcount;
         int rightcount;
         string leftResult;
         string rightResult;
-
-        public MaxDifference(Header header, int difference, int leftcount, int rightcount, string leftResult, string rightResult)
+        string data;
+        
+        public MaxDifference(Header header, List<string> datainheader, int difference, int leftcount, int rightcount, string leftResult, string rightResult, string data)
         {
             this.header = header;
+            this.datainheader = datainheader;
             this.difference = difference;
             this.leftcount = leftcount;
             this.rightcount = rightcount;
             this.leftResult = leftResult;
             this.rightResult = rightResult;
+            this.data = data;
         }
 
         public int GetDifference() {
             return this.difference;
         }
 
+        public Header GetHeader() {
+            return this.header;
+        }
+
+        public List<string> GetListDataInHeader() {
+            return this.datainheader;
+        }
+
         public void SetDifference(int difference){
             this.difference = difference;
         }
-
+        
         public string ToString() {
 
-            return "";
+            string datalist = "{";
+            for (int i = 0; i < datainheader.Count; i++) {
+                datalist += datainheader[i] + ",";
+            }
+
+            return header.GetNameHeader() + datalist +"} = " + data + "\n" +
+                "Результаты = \n" +
+                leftResult+" = "+leftcount + "\n" +
+                rightResult+" = "+rightcount + "\n" +
+                "разница=" + difference + "\n";
         }
     }
 }
