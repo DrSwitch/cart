@@ -33,5 +33,18 @@ namespace Cart_v0._0.entity
         public Header GetHeader() {
             return this.header;
         }
+
+        public string ToString ()  {
+            string str = "{";
+            for (int i = 0; i < data.Count(); i++) {
+                str += data[i];
+                if (i + 1 != data.Count) {
+                    str += ", ";
+                }
+            }
+            return header.GetNameHeader() 
+                + " = " 
+                + str + "}";
+        }
     }
 }

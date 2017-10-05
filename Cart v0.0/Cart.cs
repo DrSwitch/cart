@@ -36,7 +36,8 @@ namespace Cart_v0._0
         public void CreateTree() {
             List<string> dataInHeader = new List<string>();
             List<string> distinctResult = SelectDistinctInColumn(resuts);
-            
+
+
             ///тут мы выясняем по какому из заголовков лучше сделать разделение ветвей
             ///результатом вычислений получим экземпляр класса MaxDifference (столбец, данные в столбце, разница)
             ///это типа максимальная разница результатов в стобце с определёнными данными.
@@ -48,6 +49,7 @@ namespace Cart_v0._0
                 List<int> hash = new List<int>();
                 string mess=headers[i].GetNameHeader()+"\n";
 
+                // если данные в колонке с данными разнообразные
                 if (distinctData.Count > 1) {
                     for (int k = 0; k < distinctData.Count; k++) {
                         int count2 = 0;
@@ -73,7 +75,6 @@ namespace Cart_v0._0
                                 mess += "Разница " + count + " и " + count2 + " = " + diff + "\n";
                             }
                         }
-
                     }
                 }
                // MessageBox.Show(mess);
@@ -83,20 +84,52 @@ namespace Cart_v0._0
 
             ///начинается создание ветвей, тут создаются списки данных и результатов, 
             ///которые будут отправлены глубже
-            //List<entity.Data> dataLR = new List<entity.Data>();
-            //List<string> resutsLR = new List<string>();
+            List<entity.Data> dataLR = new List<entity.Data>();
+            List<string> resutsLR = new List<string>();
+            List<string> distData = SelectDistinctInColumn(maxdiff.GetListDataInHeader());
 
-            //for (int i = 0; i < data.Count; i++) {
-            //    List<string> hash = new List<string>();
-            //    for (int k = 0; k < data[i].DataInColumn().Count; k++)
-            //    {
-            //        if(maxdiff.GetListDataInHeader()[k] == )
-            //        hash.Add(data[i].DataInColumn()[k]);
-            //    }
+            //данные для левой ветки
+            for (int i = 0; i < data.Count; i++)
+            {
+                List<string> hash = new List<string>();
+                for (int k = 0; k < data[i].DataInColumn().Count; k++){
+                    if (maxdiff.GetListDataInHeader()[k] == distData[0]) {
+                        hash.Add(data[i].DataInColumn()[k]);
+                        if (i == 0) {
+                            resutsLR.Add(resuts[k]);
+                        }
+                    }
+                }
+                dataLR.Add(new entity.Data(data[i].GetHeader(), hash));
+            }
+            ///string str = "Результаты = {";
+            ///for (int i = 0; i < resutsLR.Count; i++) {
+            ///    str += resutsLR[i];
+            ///}
+            ///str += "}";
+            ///MessageBox.Show(str);
+            //левая ветка
+            Cart left = new Cart(headers, dataLR, resutsLR);
 
-            //    dataLR.Add(new entity.Data(data[i].GetHeader(), hash));
-
-            //}
+            //данные для правой ветки
+            for (int i = 0; i < data.Count; i++)
+            {
+                List<string> hash = new List<string>();
+                for (int k = 0; k < data[i].DataInColumn().Count; k++)
+                {
+                    if (maxdiff.GetListDataInHeader()[k] == distData[1])
+                    {
+                        hash.Add(data[i].DataInColumn()[k]);
+                        if (i == 0)
+                        {
+                            resutsLR.Add(resuts[k]);
+                        }
+                    }
+                }
+                dataLR.Add(new entity.Data(data[i].GetHeader(), hash));
+            }
+            // правая ветка
+            Cart right = new Cart(headers, dataLR, resutsLR);
 
         }
 
