@@ -14,18 +14,23 @@ namespace Cart_v0._0
         List<string> resuts = new List<string>();
         entity.MaxDifference maxdiff = new entity.MaxDifference(null, null, 0, 0, 0, "", "", "");
 
+        entity.LevelXY lvlXY = new entity.LevelXY(0,"");
         Cart left;
         Cart right;
 
-        public Cart(List<entity.Header> headers, List<entity.Data> data, List<string> resuts)
+        public Cart(List<entity.Header> headers, List<entity.Data> data, List<string> resuts, entity.LevelXY lvlXY)
         {
             this.headers = headers;
             this.data = data;
             this.resuts = resuts;
+            this.lvlXY = lvlXY;
             List<string> distinctResult = SelectDistinctInColumn(resuts);
 
             if (distinctResult.Count == 1) {
-                MessageBox.Show(distinctResult[0]);
+                MessageBox.Show("Координаты:\n" +
+                    "level = "+ lvlXY.level +
+                    "\nWay = "+lvlXY.way +
+                    "\nРезультат = "+distinctResult[0]);
             }
             else
             {
@@ -79,8 +84,8 @@ namespace Cart_v0._0
                 }
                // MessageBox.Show(mess);
             }
-            MessageBox.Show(maxdiff.ToString());
 
+            MessageBox.Show(maxdiff.ToString());
 
             ///начинается создание ветвей, тут создаются списки данных и результатов, 
             ///которые будут отправлены глубже
@@ -88,7 +93,7 @@ namespace Cart_v0._0
             List<string> resutsLR = new List<string>();
             List<string> distData = SelectDistinctInColumn(maxdiff.GetListDataInHeader());
 
-            //данные для левой ветки
+            //данные для левой ветки ПРОБЛЕМА ГДЕ_ТО ТУТ
             for (int i = 0; i < data.Count; i++)
             {
                 List<string> hash = new List<string>();
@@ -102,16 +107,21 @@ namespace Cart_v0._0
                 }
                 dataLR.Add(new entity.Data(data[i].GetHeader(), hash));
             }
-            ///string str = "Результаты = {";
-            ///for (int i = 0; i < resutsLR.Count; i++) {
-            ///    str += resutsLR[i];
-            ///}
-            ///str += "}";
-            ///MessageBox.Show(str);
-            //левая ветка
-            Cart left = new Cart(headers, dataLR, resutsLR);
 
-            //данные для правой ветки
+            //string str = "Результаты = {";
+            //for (int i = 0; i < resutsLR.Count; i++)
+            //{
+            //    str += resutsLR[i];
+            //}
+            //str += "}";
+            //MessageBox.Show(maxdiff.ToString()+"\nLeft vetka"+str);
+
+            //левая ветка
+            Cart left = new Cart(headers, dataLR, resutsLR, new entity.LevelXY(lvlXY.level+1, lvlXY.way + " left"));
+
+            dataLR = new List<entity.Data>();
+            resutsLR = new List<string>();
+            //данные для правой ветки ПРОБЛЕМА ГДЕ_ТО ТУТ
             for (int i = 0; i < data.Count; i++)
             {
                 List<string> hash = new List<string>();
@@ -128,8 +138,17 @@ namespace Cart_v0._0
                 }
                 dataLR.Add(new entity.Data(data[i].GetHeader(), hash));
             }
+
+            //string str = "Результаты = {";
+            //for (int i = 0; i < resutsLR.Count; i++)
+            //{
+            //    str += resutsLR[i];
+            //}
+            //str += "}";
+            //MessageBox.Show(maxdiff.ToString() + "\nRight vetka" + str);
+
             // правая ветка
-            Cart right = new Cart(headers, dataLR, resutsLR);
+            Cart right = new Cart(headers, dataLR, resutsLR, new entity.LevelXY(lvlXY.level + 1, lvlXY.way + " right"));
 
         }
 
