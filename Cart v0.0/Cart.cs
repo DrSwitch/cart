@@ -14,9 +14,7 @@ namespace Cart_v0._0
         List<string> resuts = new List<string>();
         entity.MaxDifference maxdiff = new entity.MaxDifference(null, null, 0, 0, 0, "", "", "");
 
-        entity.LevelXY lvlXY = new entity.LevelXY(0,"");
-        Cart left;
-        Cart right;
+        entity.LevelXY lvlXY = new entity.LevelXY(0,"",null,"");
 
         public Cart(List<entity.Header> headers, List<entity.Data> data, List<string> resuts, entity.LevelXY lvlXY)
         {
@@ -27,8 +25,9 @@ namespace Cart_v0._0
             List<string> distinctResult = SelectDistinctInColumn(resuts);
 
             if (distinctResult.Count == 1) {
-                MessageBox.Show("Координаты:\n" +
-                    "level = "+ lvlXY.level +
+                MessageBox.Show("Заголовок = " + lvlXY.header.GetNameHeader() + " там где " + lvlXY.result +
+                    "\nКоординаты:" +
+                    "\nlevel = " + lvlXY.level +
                     "\nWay = "+lvlXY.way +
                     "\nРезультат = "+distinctResult[0]);
             }
@@ -93,7 +92,7 @@ namespace Cart_v0._0
             List<string> resutsLR = new List<string>();
             List<string> distData = SelectDistinctInColumn(maxdiff.GetListDataInHeader());
 
-            //данные для левой ветки ПРОБЛЕМА ГДЕ_ТО ТУТ
+            //данные для левой ветки 
             for (int i = 0; i < data.Count; i++)
             {
                 List<string> hash = new List<string>();
@@ -108,20 +107,20 @@ namespace Cart_v0._0
                 dataLR.Add(new entity.Data(data[i].GetHeader(), hash));
             }
 
-            //string str = "Результаты = {";
-            //for (int i = 0; i < resutsLR.Count; i++)
-            //{
-            //    str += resutsLR[i];
-            //}
-            //str += "}";
-            //MessageBox.Show(maxdiff.ToString()+"\nLeft vetka"+str);
-
+            // string str = "Результаты = {";
+            // for (int i = 0; i < resutsLR.Count; i++)
+            // {
+            //     str += resutsLR[i];
+            // }
+            // str += "}";
+            // MessageBox.Show(maxdiff.ToString()+"\nLeft vetka"+str);
+                
             //левая ветка
-            Cart left = new Cart(headers, dataLR, resutsLR, new entity.LevelXY(lvlXY.level+1, lvlXY.way + " left"));
+            Cart left = new Cart(headers, dataLR, resutsLR, new entity.LevelXY(lvlXY.level+1, lvlXY.way + " left", maxdiff.GetHeader(), maxdiff.GetLeftResult()));
 
             dataLR = new List<entity.Data>();
             resutsLR = new List<string>();
-            //данные для правой ветки ПРОБЛЕМА ГДЕ_ТО ТУТ
+            //данные для правой ветки
             for (int i = 0; i < data.Count; i++)
             {
                 List<string> hash = new List<string>();
@@ -148,7 +147,7 @@ namespace Cart_v0._0
             //MessageBox.Show(maxdiff.ToString() + "\nRight vetka" + str);
 
             // правая ветка
-            Cart right = new Cart(headers, dataLR, resutsLR, new entity.LevelXY(lvlXY.level + 1, lvlXY.way + " right"));
+            Cart right = new Cart(headers, dataLR, resutsLR, new entity.LevelXY(lvlXY.level + 1, lvlXY.way + " right", maxdiff.GetHeader(), maxdiff.GetRightResult()));
 
         }
 

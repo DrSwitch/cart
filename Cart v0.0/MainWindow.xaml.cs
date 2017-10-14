@@ -26,17 +26,6 @@ namespace Cart_v0._0
         {
             InitializeComponent();
         }
-
-        private void ButtonSuka_Click(object sender, RoutedEventArgs e)
-        {
-            BinaryTree bt = new BinaryTree();
-
-            bt.Add(12);
-            bt.Add(21);
-            bt.Add(79);
-            bt.Add(99);
-            
-        }
         
         private Microsoft.Office.Interop.Excel.Application ExcelApp;
         private Microsoft.Office.Interop.Excel.Workbook WorkBookExcel;
@@ -183,7 +172,7 @@ namespace Cart_v0._0
 
         private void CreateTree_Click(object sender, RoutedEventArgs e)
         {
-            Cart cart = new Cart(headers, data, resuts, new entity.LevelXY(0,"start"));
+            Cart cart = new Cart(headers, data, resuts, new entity.LevelXY(0,"start",null,""));
         }
 
         private void DgvColorClear() {

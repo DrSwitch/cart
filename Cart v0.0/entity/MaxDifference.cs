@@ -37,6 +37,15 @@ namespace Cart_v0._0.entity
             return this.header;
         }
 
+        public string GetLeftResult() {
+            return this.leftResult;
+        }
+
+        public string GetRightResult()
+        {
+            return this.rightResult;
+        }
+
         public List<string> GetListDataInHeader() {
             return this.datainheader;
         }
