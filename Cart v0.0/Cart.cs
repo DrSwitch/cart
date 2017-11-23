@@ -25,7 +25,8 @@ namespace Cart_v0._0
             List<string> distinctResult = SelectDistinctInColumn(resuts);
 
             if (distinctResult.Count == 1) {
-                MessageBox.Show("Заголовок = " + lvlXY.header.GetNameHeader() + " там где " + lvlXY.result +
+                MessageBox.Show("Конечный узел" +
+                    "\nЗаголовок = " + lvlXY.header.GetNameHeader() + " там где " + lvlXY.result +
                     "\nКоординаты:" +
                     "\nlevel = " + lvlXY.level +
                     "\nWay = "+lvlXY.way +
@@ -84,7 +85,8 @@ namespace Cart_v0._0
                // MessageBox.Show(mess);
             }
 
-            MessageBox.Show(maxdiff.ToString());
+            MessageBox.Show("Разделяющийся узел\n" + 
+                maxdiff.ToString());
 
             ///начинается создание ветвей, тут создаются списки данных и результатов, 
             ///которые будут отправлены глубже

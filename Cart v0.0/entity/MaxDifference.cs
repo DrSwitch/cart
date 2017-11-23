@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cart_v0._0.entity
 {
+    // разделяющийся узел
     class MaxDifference
     {
         Header header;
