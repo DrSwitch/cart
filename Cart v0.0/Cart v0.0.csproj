@@ -72,7 +72,7 @@
     <Compile Include="Cart.cs" />
     <Compile Include="entity\Data.cs" />
     <Compile Include="entity\Header.cs" />
-    <Compile Include="entity\LevelXY.cs" />
+    <Compile Include="entity\Node.cs" />
     <Compile Include="entity\MaxDifference.cs" />
     <Compile Include="entity\Results.cs" />
     <Compile Include="MainWindow.xaml.cs">

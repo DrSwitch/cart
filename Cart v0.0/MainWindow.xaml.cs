@@ -172,7 +172,8 @@ namespace Cart_v0._0
 
         private void CreateTree_Click(object sender, RoutedEventArgs e)
         {
-            Cart cart = new Cart(headers, data, resuts, new entity.LevelXY(0,"start",null,""));
+
+            Cart cart = new Cart(headers, data, resuts, new entity.Node(0,"S",null,""));
         }
 
         private void DgvColorClear() {

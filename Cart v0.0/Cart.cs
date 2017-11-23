@@ -14,22 +14,22 @@ namespace Cart_v0._0
         List<string> resuts = new List<string>();
         entity.MaxDifference maxdiff = new entity.MaxDifference(null, null, 0, 0, 0, "", "", "");
 
-        entity.LevelXY lvlXY = new entity.LevelXY(0,"",null,"");
+        entity.Node node = new entity.Node(0,null,null,"");
 
-        public Cart(List<entity.Header> headers, List<entity.Data> data, List<string> resuts, entity.LevelXY lvlXY)
+        public Cart(List<entity.Header> headers, List<entity.Data> data, List<string> resuts, entity.Node node)
         {
             this.headers = headers;
             this.data = data;
             this.resuts = resuts;
-            this.lvlXY = lvlXY;
+            this.node = node;
             List<string> distinctResult = SelectDistinctInColumn(resuts);
 
             if (distinctResult.Count == 1) {
                 MessageBox.Show("Конечный узел" +
-                    "\nЗаголовок = " + lvlXY.header.GetNameHeader() + " там где " + lvlXY.result +
+                    "\nЗаголовок = " + node.header.GetNameHeader() + " там где " + node.result +
                     "\nКоординаты:" +
-                    "\nlevel = " + lvlXY.level +
-                    "\nWay = "+lvlXY.way +
+                    "\nlevel = " + node.level +
+                    "\nWay = "+node.way +
                     "\nРезультат = "+distinctResult[0]);
             }
             else
@@ -86,7 +86,8 @@ namespace Cart_v0._0
             }
 
             MessageBox.Show("Разделяющийся узел\n" + 
-                maxdiff.ToString());
+                "way = " + node.way +
+                "\n" + maxdiff.ToString());
 
             ///начинается создание ветвей, тут создаются списки данных и результатов, 
             ///которые будут отправлены глубже
@@ -118,7 +119,7 @@ namespace Cart_v0._0
             // MessageBox.Show(maxdiff.ToString()+"\nLeft vetka"+str);
                 
             //левая ветка
-            Cart left = new Cart(headers, dataLR, resutsLR, new entity.LevelXY(lvlXY.level+1, lvlXY.way + " left", maxdiff.GetHeader(), maxdiff.GetLeftResult()));
+            Cart left = new Cart(headers, dataLR, resutsLR, new entity.Node(node.level+1, node.way + "L", maxdiff.GetHeader(), maxdiff.GetLeftResult()));
 
             dataLR = new List<entity.Data>();
             resutsLR = new List<string>();
@@ -149,7 +150,7 @@ namespace Cart_v0._0
             //MessageBox.Show(maxdiff.ToString() + "\nRight vetka" + str);
 
             // правая ветка
-            Cart right = new Cart(headers, dataLR, resutsLR, new entity.LevelXY(lvlXY.level + 1, lvlXY.way + " right", maxdiff.GetHeader(), maxdiff.GetRightResult()));
+            Cart right = new Cart(headers, dataLR, resutsLR, new entity.Node(node.level + 1, node.way + "R", maxdiff.GetHeader(), maxdiff.GetRightResult()));
 
         }
 
