@@ -12,9 +12,11 @@ namespace Cart_v0._0
         List<entity.Header> headers = new List<entity.Header>();
         List<entity.Data> data = new List<entity.Data>();
         List<string> resuts = new List<string>();
-        entity.MaxDifference maxdiff = new entity.MaxDifference(null, null, 0, 0, 0, "", "", "");
+        entity.NextNode nextNode = new entity.NextNode(null, null, 0, 0, 0, "", "", "");
 
-        entity.Node node = new entity.Node(0,null,null,"");
+        List<entity.Node> nodes = new List<entity.Node>();
+
+        entity.Node node = new entity.Node(null,null,"");
 
         public Cart(List<entity.Header> headers, List<entity.Data> data, List<string> resuts, entity.Node node)
         {
@@ -25,16 +27,18 @@ namespace Cart_v0._0
             List<string> distinctResult = SelectDistinctInColumn(resuts);
 
             if (distinctResult.Count == 1) {
-                MessageBox.Show("Конечный узел" +
-                    "\nЗаголовок = " + node.header.GetNameHeader() + " там где " + node.result +
-                    "\nКоординаты:" +
-                    "\nlevel = " + node.level +
-                    "\nWay = "+node.way +
-                    "\nРезультат = "+distinctResult[0]);
+                //MessageBox.Show("Конечный узел" +
+                //    "\n" + node.header.GetNameHeader() + " = " + node.result +
+                //    "\nКоординаты:" +
+                //    "\nWay = "+node.way +
+                //    "\nРезультат = "+distinctResult[0]);
+                node.decision = distinctResult[0];
+                nodes.Add(node);
             }
             else
             {
                 CreateTree();
+
             }
         }
 
@@ -76,7 +80,7 @@ namespace Cart_v0._0
                             }
                             if (j == 1) {
                                 diff = Math.Abs(count - count2);
-                                if (maxdiff.GetDifference() < diff) maxdiff = new entity.MaxDifference(headers[i], dataInHeader, diff, count2, count, distinctResult[0], distinctResult[1], distinctData[k]);
+                                if (nextNode.GetDifference() < diff) nextNode = new entity.NextNode(headers[i], dataInHeader, diff, count2, count, distinctResult[0], distinctResult[1], distinctData[k]);
                                 mess += "Разница " + count + " и " + count2 + " = " + diff + "\n";
                             }
                         }
@@ -85,22 +89,39 @@ namespace Cart_v0._0
                // MessageBox.Show(mess);
             }
 
-            MessageBox.Show("Разделяющийся узел\n" + 
-                "way = " + node.way +
-                "\n" + maxdiff.ToString());
+            if (node.way == "S")
+            {
+                //MessageBox.Show("Стартовый узел\n" +
+                //    "\nКоординаты:" +
+                //    "\nWay = " + node.way +
+                //    "\n" + nextNode.GetHeader().GetNameHeader() + " ?");
+                node.header = nextNode.GetHeader();
+                nodes.Add(node);
+            }
+            else {
+                //MessageBox.Show("Разделяющийся узел\n" +
+                //    "\n" + node.header.GetNameHeader() + " = " + node.result +
+                //    "\nКоординаты:" +
+                //    "\nWay = " + node.way +
+                //    "\n" + nextNode.GetHeader().GetNameHeader() + " ?");
+                nodes.Add(node);
+
+            }
+            
 
             ///начинается создание ветвей, тут создаются списки данных и результатов, 
             ///которые будут отправлены глубже
             List<entity.Data> dataLR = new List<entity.Data>();
             List<string> resutsLR = new List<string>();
-            List<string> distData = SelectDistinctInColumn(maxdiff.GetListDataInHeader());
+            List<string> distData = SelectDistinctInColumn(nextNode.GetListDataInHeader());
+
 
             //данные для левой ветки 
             for (int i = 0; i < data.Count; i++)
             {
                 List<string> hash = new List<string>();
                 for (int k = 0; k < data[i].DataInColumn().Count; k++){
-                    if (maxdiff.GetListDataInHeader()[k] == distData[0]) {
+                    if (nextNode.GetListDataInHeader()[k] == distData[0]) {
                         hash.Add(data[i].DataInColumn()[k]);
                         if (i == 0) {
                             resutsLR.Add(resuts[k]);
@@ -109,18 +130,10 @@ namespace Cart_v0._0
                 }
                 dataLR.Add(new entity.Data(data[i].GetHeader(), hash));
             }
-
-            // string str = "Результаты = {";
-            // for (int i = 0; i < resutsLR.Count; i++)
-            // {
-            //     str += resutsLR[i];
-            // }
-            // str += "}";
-            // MessageBox.Show(maxdiff.ToString()+"\nLeft vetka"+str);
-                
+     
             //левая ветка
-            Cart left = new Cart(headers, dataLR, resutsLR, new entity.Node(node.level+1, node.way + "L", maxdiff.GetHeader(), maxdiff.GetLeftResult()));
-
+            Cart left = new Cart(headers, dataLR, resutsLR, new entity.Node(node.way + "L", nextNode.GetHeader(), distData[0]));
+            nodes.AddRange(left.GetNodes());
             dataLR = new List<entity.Data>();
             resutsLR = new List<string>();
             //данные для правой ветки
@@ -129,7 +142,7 @@ namespace Cart_v0._0
                 List<string> hash = new List<string>();
                 for (int k = 0; k < data[i].DataInColumn().Count; k++)
                 {
-                    if (maxdiff.GetListDataInHeader()[k] == distData[1])
+                    if (nextNode.GetListDataInHeader()[k] == distData[1])
                     {
                         hash.Add(data[i].DataInColumn()[k]);
                         if (i == 0)
@@ -141,19 +154,11 @@ namespace Cart_v0._0
                 dataLR.Add(new entity.Data(data[i].GetHeader(), hash));
             }
 
-            //string str = "Результаты = {";
-            //for (int i = 0; i < resutsLR.Count; i++)
-            //{
-            //    str += resutsLR[i];
-            //}
-            //str += "}";
-            //MessageBox.Show(maxdiff.ToString() + "\nRight vetka" + str);
-
             // правая ветка
-            Cart right = new Cart(headers, dataLR, resutsLR, new entity.Node(node.level + 1, node.way + "R", maxdiff.GetHeader(), maxdiff.GetRightResult()));
-
+            Cart right = new Cart(headers, dataLR, resutsLR, new entity.Node(node.way + "R", nextNode.GetHeader(), distData[1]));
+            nodes.AddRange(right.GetNodes());
         }
-
+        
         private List<string> SelectDistinctInColumn(List<string> dataInColumn) {
 
             List<string> hash = new List<string>();
@@ -164,5 +169,8 @@ namespace Cart_v0._0
             return hash;
         }
 
+        public List<entity.Node> GetNodes() {
+            return nodes;
+        }
     }
 }

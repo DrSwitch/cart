@@ -172,8 +172,18 @@ namespace Cart_v0._0
 
         private void CreateTree_Click(object sender, RoutedEventArgs e)
         {
+            Cart cart = new Cart(headers, data, resuts, new entity.Node("S",null,""));
 
-            Cart cart = new Cart(headers, data, resuts, new entity.Node(0,"S",null,""));
+            List<entity.Node> nodes = new List<entity.Node>();
+
+            nodes = cart.GetNodes();
+            string str="";
+            for (int i = 0; i < nodes.Count; i++) {
+                str += nodes[i].header.GetNameHeader() + " = " + nodes[i].result + " way = " + nodes[i].way 
+                    + "\nРешение = " + nodes[i].decision
+                    + "\n";
+            }
+            System.Windows.MessageBox.Show(str);
         }
 
         private void DgvColorClear() {

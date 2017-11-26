@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace Cart_v0._0.entity
 {
     // разделяющийся узел
-    class MaxDifference
+    class NextNode
     {
         Header header;
         List<string> datainheader;
@@ -18,7 +18,7 @@ namespace Cart_v0._0.entity
         string rightResult;
         string data;
         
-        public MaxDifference(Header header, List<string> datainheader, int difference, int leftcount, int rightcount, string leftResult, string rightResult, string data)
+        public NextNode(Header header, List<string> datainheader, int difference, int leftcount, int rightcount, string leftResult, string rightResult, string data)
         {
             this.header = header;
             this.datainheader = datainheader;
@@ -28,6 +28,10 @@ namespace Cart_v0._0.entity
             this.leftResult = leftResult;
             this.rightResult = rightResult;
             this.data = data;
+        }
+
+        public string GetData() {
+            return data;
         }
 
         public int GetDifference() {
