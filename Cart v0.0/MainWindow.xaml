@@ -19,6 +19,7 @@
             <Button x:Name="SelectResults" Margin="5,5,5,5" Height="30" Content="Выбрать результаты" Click="SelectResults_Click" />
             <Button x:Name="SelectData" Margin="5,5,5,5" Height="30" Content="Выбрать данные" Click="SelectData_Click" />
             <Button x:Name="CreateTree" Margin="5,5,5,5" Height="30" Content="Построить дерево" Click="CreateTree_Click" />
+
         </StackPanel>
         <StackPanel Grid.Column="1">
             <TextBlock x:Name="headerstext" Height="120" Margin="5,5,5,5" Text=""/>

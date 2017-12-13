@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Cart_v0._0.entity
 {
-    class Header
+    public class Header
     {
         string nameHeader;
 

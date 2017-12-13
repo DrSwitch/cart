@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows;
 
 namespace Cart_v0._0
 {
@@ -18,6 +21,9 @@ namespace Cart_v0._0
 
         entity.Node node = new entity.Node(null,null,"");
 
+        StackPanel myStackPanel = new StackPanel();
+        StackPanel hashSP = new StackPanel();
+
         public Cart(List<entity.Header> headers, List<entity.Data> data, List<string> resuts, entity.Node node)
         {
             this.headers = headers;
@@ -25,6 +31,12 @@ namespace Cart_v0._0
             this.resuts = resuts;
             this.node = node;
             List<string> distinctResult = SelectDistinctInColumn(resuts);
+
+            Thickness thickness = new Thickness(5,5,5,5);
+            myStackPanel.Margin = thickness;
+            hashSP.Orientation = System.Windows.Controls.Orientation.Horizontal;
+            hashSP.Margin = thickness;
+            hashSP.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
 
             if (distinctResult.Count == 1) {
                 //MessageBox.Show("Конечный узел" +
@@ -34,11 +46,13 @@ namespace Cart_v0._0
                 //    "\nРезультат = "+distinctResult[0]);
                 node.decision = distinctResult[0];
                 nodes.Add(node);
+                myStackPanel.Children.Add(DrawNode(node.header.GetNameHeader()
+                    + " = " + node.result
+                    + "\nРешение = " + node.decision));
             }
             else
             {
                 CreateTree();
-
             }
         }
 
@@ -130,10 +144,18 @@ namespace Cart_v0._0
                 }
                 dataLR.Add(new entity.Data(data[i].GetHeader(), hash));
             }
-     
+
+            if(node.way  == "S")
+                myStackPanel.Children.Add(DrawNode(node.header.GetNameHeader()));
+            else
+                myStackPanel.Children.Add(DrawNode(node.header.GetNameHeader()
+                + " = " + node.result));
+
             //левая ветка
             Cart left = new Cart(headers, dataLR, resutsLR, new entity.Node(node.way + "L", nextNode.GetHeader(), distData[0]));
             nodes.AddRange(left.GetNodes());
+            hashSP.Children.Add(left.GetStackPanel());
+
             dataLR = new List<entity.Data>();
             resutsLR = new List<string>();
             //данные для правой ветки
@@ -157,6 +179,10 @@ namespace Cart_v0._0
             // правая ветка
             Cart right = new Cart(headers, dataLR, resutsLR, new entity.Node(node.way + "R", nextNode.GetHeader(), distData[1]));
             nodes.AddRange(right.GetNodes());
+            hashSP.Children.Add(right.GetStackPanel());
+
+            myStackPanel.Children.Add(hashSP);
+
         }
         
         private List<string> SelectDistinctInColumn(List<string> dataInColumn) {
@@ -171,6 +197,23 @@ namespace Cart_v0._0
 
         public List<entity.Node> GetNodes() {
             return nodes;
+        }
+
+        public StackPanel GetStackPanel() {
+            return myStackPanel;
+        }
+
+        private System.Windows.Controls.Label DrawNode(string text)
+        {
+            System.Windows.Controls.Label lbl = new System.Windows.Controls.Label();
+            lbl.Name = "lbl";
+            lbl.Content = text;
+            lbl.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center;
+            Thickness thickness = new Thickness(5, 5, 5, 5);
+            lbl.Margin = thickness;
+            lbl.Background = Brushes.AliceBlue;
+
+            return lbl;
         }
     }
 }

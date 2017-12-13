@@ -9,7 +9,7 @@ namespace Cart_v0._0.entity
     // это класс для координат в в бинарном дереве
     // что бы определять в каком месте дерева находится эта ветка
 
-    class Node
+    public class Node 
     {
         // заголовок отцовского узла
         public Header header;

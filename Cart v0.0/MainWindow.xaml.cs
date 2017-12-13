@@ -91,6 +91,7 @@ namespace Cart_v0._0
         List<entity.Data> data = new List<entity.Data>();
         List<string> resuts = new List<string>();
 
+        // выделить список заголовков
         private void SelectHeaders_Click(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < dgv.RowCount; i++)
@@ -111,7 +112,7 @@ namespace Cart_v0._0
                 }
             }
         }
-
+        // выделить список результатов
         private void SelectResults_Click(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < dgv.RowCount; i++)
@@ -132,7 +133,7 @@ namespace Cart_v0._0
                 }
             }
         }
-
+        // выделить список данных
         private void SelectData_Click(object sender, RoutedEventArgs e)
         {
             for (int i = 0; i < dgv.RowCount; i++)
@@ -170,20 +171,30 @@ namespace Cart_v0._0
             }
         }
 
+        List<entity.Node> nodes = new List<entity.Node>();
+
         private void CreateTree_Click(object sender, RoutedEventArgs e)
         {
-            Cart cart = new Cart(headers, data, resuts, new entity.Node("S",null,""));
+            entity.Tree.headers = headers;
+            entity.Tree.data = data;
+            entity.Tree.resuts = resuts;
 
-            List<entity.Node> nodes = new List<entity.Node>();
+            ViewTree vt = new ViewTree();
+            vt.ShowDialog();
 
-            nodes = cart.GetNodes();
-            string str="";
-            for (int i = 0; i < nodes.Count; i++) {
-                str += nodes[i].header.GetNameHeader() + " = " + nodes[i].result + " way = " + nodes[i].way 
-                    + "\nРешение = " + nodes[i].decision
-                    + "\n";
-            }
-            System.Windows.MessageBox.Show(str);
+            //string str = "";
+            //for (int i = 0; i < nodes.Count; i++)
+            //{
+            //    string pr = "";
+            //    for (int j = 0; j < nodes[i].way.Length; j++)
+            //    {
+            //        pr += "  ";
+            //    }
+            //    str += pr + nodes[i].header.GetNameHeader() + " = " + nodes[i].result + " way = " + nodes[i].way
+            //        + "\nРешение = " + nodes[i].decision
+            //        + "\n";
+            //}
+            //System.Windows.MessageBox.Show(str);
         }
 
         private void DgvColorClear() {

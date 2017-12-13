@@ -1,0 +1,46 @@
+﻿<Window x:Class="Cart_v0._0.ViewTree"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cart_v0._0"
+        mc:Ignorable="d"
+        Title="ViewTree" Height="600" Width="700">
+    <Grid>
+        <StackPanel Margin="0,0,0,0" >
+            <Label Margin="5,5,5,5" Content="asfasdfasdga" Background="Aquamarine"/>
+            <StackPanel Margin="0,0,0,0" Orientation="Horizontal" >
+                <StackPanel Margin="0,0,0,0">
+                    <Label Margin="5,5,5,5" Content="asfassdfgsdgfhjdfjdghkfghkfhdfghdfasdga" Background="Aquamarine"/>
+                    <StackPanel Margin="0,0,0,0" Orientation="Horizontal" >
+                        <StackPanel Margin="0,0,0,0">
+                            <Label Margin="5,5,5,5" Content="asfassdhdfasdga" Background="Aquamarine"/>
+                        </StackPanel>
+                        <StackPanel Margin="0,0,0,0">
+                            <Label Margin="5,5,5,5" Content="asfasdga" Background="Aquamarine"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="0,0,0,0">
+                    <Label Margin="5,5,5,5" Content="asfsdfasdga" Background="Aquamarine"/>
+                    <StackPanel Margin="0,0,0,0" Orientation="Horizontal" >
+                        <StackPanel Margin="0,0,0,0">
+                            <Label Margin="5,5,5,5" Content="asfassdfgsdasdga" Background="Aquamarine"/>
+                            <StackPanel Margin="0,0,0,0" Orientation="Horizontal" >
+                                <StackPanel Margin="0,0,0,0">
+                                    <Label Margin="5,5,5,5" Content="asfadfasdga" Background="Aquamarine"/>
+                                </StackPanel>
+                                <StackPanel Margin="0,0,0,0">
+                                    <Label Margin="5,5,5,5" Content="asfsdffasdga" Background="Aquamarine"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                        <StackPanel Margin="0,0,0,0">
+                            <Label Margin="5,5,5,5" Content="asfsdfdga" Background="Aquamarine"/>
+                        </StackPanel>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
