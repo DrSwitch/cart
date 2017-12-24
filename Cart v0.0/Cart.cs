@@ -225,7 +225,7 @@ namespace Cart_v0._0
             Thickness thickness = new Thickness(2,2,2,2);
             lbl.Margin = thickness;
             lbl.SetValue(Grid.RowProperty, 0);
-            lbl.Background = Brushes.Azure;
+            lbl.Background = Brushes.Tomato;
 
             return lbl;
         }
