@@ -21,8 +21,13 @@ namespace Cart_v0._0
 
         entity.Node node = new entity.Node(null,null,"");
 
-        StackPanel myStackPanel = new StackPanel();
-        StackPanel hashSP = new StackPanel();
+        Grid gridWithRows = new Grid();
+        Grid gridWithColumns = new Grid();
+        RowDefinition rowDefinition0 = new RowDefinition();
+        RowDefinition rowDefinition1 = new RowDefinition();
+        ColumnDefinition columnDefinition0 = new ColumnDefinition();
+        ColumnDefinition columnDefinition1 = new ColumnDefinition();
+        
 
         public Cart(List<entity.Header> headers, List<entity.Data> data, List<string> resuts, entity.Node node)
         {
@@ -32,11 +37,15 @@ namespace Cart_v0._0
             this.node = node;
             List<string> distinctResult = SelectDistinctInColumn(resuts);
 
-            Thickness thickness = new Thickness(5,5,5,5);
-            myStackPanel.Margin = thickness;
-            hashSP.Orientation = System.Windows.Controls.Orientation.Horizontal;
-            hashSP.Margin = thickness;
-            hashSP.HorizontalAlignment = System.Windows.HorizontalAlignment.Center;
+
+            gridWithRows.RowDefinitions.Add(rowDefinition0);
+            gridWithRows.RowDefinitions.Add(rowDefinition1);
+            gridWithColumns.ColumnDefinitions.Add(columnDefinition0);
+            gridWithColumns.ColumnDefinitions.Add(columnDefinition1);
+
+            gridWithColumns.SetValue(Grid.RowProperty,1);
+            Thickness thickness = new Thickness(0,0,0,0);
+            gridWithRows.Margin = thickness;
 
             if (distinctResult.Count == 1) {
                 //MessageBox.Show("Конечный узел" +
@@ -46,7 +55,8 @@ namespace Cart_v0._0
                 //    "\nРезультат = "+distinctResult[0]);
                 node.decision = distinctResult[0];
                 nodes.Add(node);
-                myStackPanel.Children.Add(DrawNode(node.header.GetNameHeader()
+                
+                gridWithRows.Children.Add(DrawNode(node.header.GetNameHeader()
                     + " = " + node.result
                     + "\nРешение = " + node.decision));
             }
@@ -146,15 +156,16 @@ namespace Cart_v0._0
             }
 
             if(node.way  == "S")
-                myStackPanel.Children.Add(DrawNode(node.header.GetNameHeader()));
+                gridWithRows.Children.Add(DrawNode(node.header.GetNameHeader()));
             else
-                myStackPanel.Children.Add(DrawNode(node.header.GetNameHeader()
+                gridWithRows.Children.Add(DrawNode(node.header.GetNameHeader()
                 + " = " + node.result));
 
             //левая ветка
             Cart left = new Cart(headers, dataLR, resutsLR, new entity.Node(node.way + "L", nextNode.GetHeader(), distData[0]));
             nodes.AddRange(left.GetNodes());
-            hashSP.Children.Add(left.GetStackPanel());
+            left.GetGridWithRows().SetValue(Grid.ColumnProperty,0);
+            gridWithColumns.Children.Add(left.GetGridWithRows());
 
             dataLR = new List<entity.Data>();
             resutsLR = new List<string>();
@@ -179,9 +190,10 @@ namespace Cart_v0._0
             // правая ветка
             Cart right = new Cart(headers, dataLR, resutsLR, new entity.Node(node.way + "R", nextNode.GetHeader(), distData[1]));
             nodes.AddRange(right.GetNodes());
-            hashSP.Children.Add(right.GetStackPanel());
+            right.GetGridWithRows().SetValue(Grid.ColumnProperty,1);
+            gridWithColumns.Children.Add(right.GetGridWithRows());
 
-            myStackPanel.Children.Add(hashSP);
+            gridWithRows.Children.Add(gridWithColumns);
 
         }
         
@@ -199,8 +211,8 @@ namespace Cart_v0._0
             return nodes;
         }
 
-        public StackPanel GetStackPanel() {
-            return myStackPanel;
+        public Grid GetGridWithRows() {
+            return gridWithRows;
         }
 
         private System.Windows.Controls.Label DrawNode(string text)
@@ -209,9 +221,10 @@ namespace Cart_v0._0
             lbl.Name = "lbl";
             lbl.Content = text;
             lbl.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center;
-            Thickness thickness = new Thickness(5, 5, 5, 5);
+            Thickness thickness = new Thickness(2,2,2,2);
             lbl.Margin = thickness;
-            lbl.Background = Brushes.AliceBlue;
+            lbl.SetValue(Grid.RowProperty, 0);
+            lbl.Background = Brushes.Azure;
 
             return lbl;
         }

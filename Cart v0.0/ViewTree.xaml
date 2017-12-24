@@ -7,40 +7,70 @@
         mc:Ignorable="d"
         Title="ViewTree" Height="600" Width="700">
     <Grid>
-        <StackPanel Margin="0,0,0,0" >
-            <Label Margin="5,5,5,5" Content="asfasdfasdga" Background="Aquamarine"/>
-            <StackPanel Margin="0,0,0,0" Orientation="Horizontal" >
-                <StackPanel Margin="0,0,0,0">
-                    <Label Margin="5,5,5,5" Content="asfassdfgsdgfhjdfjdghkfghkfhdfghdfasdga" Background="Aquamarine"/>
-                    <StackPanel Margin="0,0,0,0" Orientation="Horizontal" >
-                        <StackPanel Margin="0,0,0,0">
-                            <Label Margin="5,5,5,5" Content="asfassdhdfasdga" Background="Aquamarine"/>
-                        </StackPanel>
-                        <StackPanel Margin="0,0,0,0">
-                            <Label Margin="5,5,5,5" Content="asfasdga" Background="Aquamarine"/>
-                        </StackPanel>
-                    </StackPanel>
-                </StackPanel>
-                <StackPanel Margin="0,0,0,0">
-                    <Label Margin="5,5,5,5" Content="asfsdfasdga" Background="Aquamarine"/>
-                    <StackPanel Margin="0,0,0,0" Orientation="Horizontal" >
-                        <StackPanel Margin="0,0,0,0">
-                            <Label Margin="5,5,5,5" Content="asfassdfgsdasdga" Background="Aquamarine"/>
-                            <StackPanel Margin="0,0,0,0" Orientation="Horizontal" >
-                                <StackPanel Margin="0,0,0,0">
-                                    <Label Margin="5,5,5,5" Content="asfadfasdga" Background="Aquamarine"/>
-                                </StackPanel>
-                                <StackPanel Margin="0,0,0,0">
-                                    <Label Margin="5,5,5,5" Content="asfsdffasdga" Background="Aquamarine"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </StackPanel>
-                        <StackPanel Margin="0,0,0,0">
-                            <Label Margin="5,5,5,5" Content="asfsdfdga" Background="Aquamarine"/>
-                        </StackPanel>
-                    </StackPanel>
-                </StackPanel>
-            </StackPanel>
-        </StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition></ColumnDefinition>
+                <ColumnDefinition></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid  Grid.Column="0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Margin="5,5,5,5" Content="asfasssdga" Background="Aquamarine"/>
+            </Grid>
+            <Grid  Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label Margin="5,5,5,5" Content="dga" Background="Aquamarine"/>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid  Grid.Column="0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Margin="5,5,5,5" Content="asfasssdga" Background="Aquamarine"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition></ColumnDefinition>
+                                <ColumnDefinition></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+                            <Grid  Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Margin="5,5,5,5" Content="asfasssdga" Background="Aquamarine"/>
+                            </Grid>
+                            <Grid  Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="40"></RowDefinition>
+                                    <RowDefinition Height="*"></RowDefinition>
+                                </Grid.RowDefinitions>
+                                <Label Margin="5,5,5,5" Content="dga" Background="Aquamarine"/>
+                            </Grid>
+                        </Grid>
+                    </Grid>
+                    <Grid  Grid.Column="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="40"></RowDefinition>
+                            <RowDefinition Height="*"></RowDefinition>
+                        </Grid.RowDefinitions>
+                        <Label Margin="5,5,5,5" Content="dga" Background="Aquamarine"/>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Label Margin="5,5,5,5" Content="afhdfgha" Background="Aquamarine"/>
     </Grid>
 </Window>

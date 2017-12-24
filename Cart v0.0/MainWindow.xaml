@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Cart_v0._0"
         xmlns:integration="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="660" Loaded="Window_Loaded">
+        Title="MainWindow" Height="350" Width="500" Loaded="Window_Loaded">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="150"/>

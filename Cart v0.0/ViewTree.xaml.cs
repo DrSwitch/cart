@@ -54,9 +54,10 @@ namespace Cart_v0._0
 
             nodes = entity.Tree.Nodes;
             StackPanel myStackPanel = new StackPanel();
-            myStackPanel.Children.Add(cart.GetStackPanel());
+            myStackPanel.Children.Add(cart.GetGridWithRows());
 
             this.Content = myStackPanel;
+  
         }
 
         private void ShowNodes(){
