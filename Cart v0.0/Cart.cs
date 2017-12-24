@@ -220,6 +220,7 @@ namespace Cart_v0._0
             System.Windows.Controls.Label lbl = new System.Windows.Controls.Label();
             lbl.Name = "lbl";
             lbl.Content = text;
+            lbl.ToolTip = text;
             lbl.HorizontalContentAlignment = System.Windows.HorizontalAlignment.Center;
             Thickness thickness = new Thickness(2,2,2,2);
             lbl.Margin = thickness;
