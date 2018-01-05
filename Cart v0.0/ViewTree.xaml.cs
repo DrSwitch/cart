@@ -27,21 +27,6 @@ namespace Cart_v0._0
             DrawTree();
         }
 
-        private Label DrawNode(int X, int Y, string text) {
-
-
-            Label lbl = new Label();
-            lbl.Name = "lbl";
-            lbl.Content = text;
-            lbl.HorizontalContentAlignment = HorizontalAlignment.Center;
-            Thickness thickness = new Thickness(X, Y, 5, 5);
-            lbl.Margin = thickness;
-            lbl.Background = Brushes.AliceBlue;
-
-            return lbl;
-
-        }
-
         public void DrawTree() {
 
             Cart cart = new Cart(entity.Tree.headers,
