@@ -29,20 +29,24 @@ namespace Cart_v0._0
 
         public void DrawTree() {
 
-            Cart cart = new Cart(entity.Tree.headers,
+            ClfTree cart = new ClfTree(entity.Tree.headers,
                 entity.Tree.data,
-                entity.Tree.resuts,
-                new entity.Node("S", null, ""));
+                entity.Tree.resuts);
 
-            nodes = cart.GetNodes();
-            entity.Tree.Nodes = nodes;
+            //Cart cart = new Cart(entity.Tree.headers,
+            //    entity.Tree.data,
+            //    entity.Tree.resuts,
+            //    new entity.Node("S", null, ""));
 
-            nodes = entity.Tree.Nodes;
-            StackPanel myStackPanel = new StackPanel();
-            myStackPanel.Children.Add(cart.GetGridWithRows());
+            //nodes = cart.GetNodes();
+            //entity.Tree.Nodes = nodes;
 
-            this.Content = myStackPanel;
-  
+            //nodes = entity.Tree.Nodes;
+            //StackPanel myStackPanel = new StackPanel();
+            //myStackPanel.Children.Add(cart.GetGridWithRows());
+
+            //this.Content = myStackPanel;
+
         }
 
         private void ShowNodes(){

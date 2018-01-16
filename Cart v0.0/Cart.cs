@@ -196,6 +196,7 @@ namespace Cart_v0._0
             gridWithRows.Children.Add(gridWithColumns);
 
         }
+
         //тест ветки
         private List<string> SelectDistinctInColumn(List<string> dataInColumn) {
 

@@ -61,6 +61,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="ClfTree.cs" />
+    <Compile Include="entityClf\Para.cs" />
     <Compile Include="entity\Tree.cs" />
     <Compile Include="ViewTree.xaml.cs">
       <DependentUpon>ViewTree.xaml</DependentUpon>
@@ -117,7 +119,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DAO\" />
-    <Folder Include="service\" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Core">
