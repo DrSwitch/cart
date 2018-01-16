@@ -18,6 +18,10 @@ namespace Cart_v0._0.entity
             this.data = data;
         }
 
+        public void RemoveAtData(int N) {
+            data.RemoveAt(N);
+        }
+
         //вытаскиваем данные соответствующие стобцу с индексом indexheader
         public List<string> DataInColumn()
         {

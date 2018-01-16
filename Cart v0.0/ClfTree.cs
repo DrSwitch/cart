@@ -45,15 +45,14 @@ namespace Cart_v0._0
             for (index = 0; index < headers.Count - 1; index++){
                 entity.Header header = headers[index];
                 minPara.SetIdHeader(index);
-                str += header.GetNameHeader() + "={";
                 // цикл по данным в заголовке нужно дистинкт этих данных сделать
                 IEnumerable<string> data = this.data[index].DataInColumn();
                 foreach (string dat in data) {
                     minPara.SetZnach(dat);
-                    str += dat + " ";
+
                 }
-                str += "}\n";
             }
+
             MessageBox.Show(str);
         }
 
@@ -64,30 +63,56 @@ namespace Cart_v0._0
             return 0;
         }
 
-        // записываем данные для левой ветки (>)
+        // записываем данные для левой ветки (<)
         private void Left(int idHeader, string znach) {
-            string str = "";
 
-
+            leftdata = this.data;
+            leftresuts = this.resuts;
+            int N=0;
             IEnumerable<string> data = this.data[idHeader].DataInColumn();
             // цикл по данным в заголовке
             foreach (string dat in data) {
-                // если первая строка предшествует второй в порядке сортировки.
-                if (String.Compare(dat,znach) < 0) {
+                // Первая строка следует за второй в порядке сортировки. OR Первая и вторая строка равны.
+                if (String.Compare(dat,znach) >= 0) {
                     // цикл по заголовкам (Header)  кроме последнего, последний это заголовок результатов
+                    // тут мы удаляем строку
                     for (int index = 0; index < headers.Count - 1; index++) {
-
+                        // удаляем в столбце определённый элемент 
+                        leftdata[index].RemoveAtData(N);
                     }
+                    // удаляем результат
+                    leftresuts.RemoveAt(N);
                 }
+                N++;
             }
-
-
         }
 
-        // записываем данные для правой ветки (<=)
-        private void Right(entity.Header header, string znach) {
-
+        // записываем данные для правой ветки (>=)
+        private void Right(int idHeader, string znach) {
+            rightdata = this.data;
+            rightresuts = this.resuts;
+            int N = 0;
+            IEnumerable<string> data = this.data[idHeader].DataInColumn();
+            // цикл по данным в заголовке
+            foreach (string dat in data)
+            {
+                // если первая строка предшествует второй в порядке сортировки.
+                if (String.Compare(dat, znach) < 0)
+                {
+                    // цикл по заголовкам (Header)  кроме последнего, последний это заголовок результатов
+                    // тут мы удаляем строку
+                    for (int index = 0; index < headers.Count - 1; index++)
+                    {
+                        // удаляем в столбце определённый элемент 
+                        rightdata[index].RemoveAtData(N);
+                    }
+                    // удаляем результат
+                    rightresuts.RemoveAt(N);
+                }
+                N++;
+            }
         }
+        
         //тест ветки
         private List<string> SelectDistinctInColumn(List<string> dataInColumn)
         {
