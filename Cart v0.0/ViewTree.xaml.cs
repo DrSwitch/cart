@@ -33,6 +33,10 @@ namespace Cart_v0._0
                 entity.Tree.data,
                 entity.Tree.resuts);
 
+            StackPanel myStackPanel = new StackPanel();
+            myStackPanel.Children.Add(cart.GetGridWithRows());
+            this.Content = myStackPanel;
+
             //Cart cart = new Cart(entity.Tree.headers,
             //    entity.Tree.data,
             //    entity.Tree.resuts,

@@ -83,6 +83,7 @@ namespace Cart_v0._0
             dgv.AllowUserToAddRows = false;
             dgv.AllowUserToResizeRows = false;
             dgv.ReadOnly = true;
+            
             dgv.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             this.grid1.Children.Add(host);
         }

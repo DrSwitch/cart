@@ -22,10 +22,33 @@ namespace Cart_v0._0.entity
             data.RemoveAt(N);
         }
 
-        //вытаскиваем данные соответствующие стобцу с индексом indexheader
+        //вытаскиваем данные соответствующие стобцу
         public List<string> DataInColumn()
         {
             return this.data;
+        }
+
+        // Возвращает лист индексов данных, которые меньше полученного значения
+        public List<int> DataInColumnUnder(string N)
+        {
+            List<int> hash = new List<int>();
+            for (int i = 0; i < data.Count; i++) {
+                if (String.Compare(N, data[i]) > 0)
+                    hash.Add(i);
+            }
+            return hash;
+        }
+
+        //вытаскиваем данные соответствующие стобцу, если он больше полученного значения
+        public List<int> DataInColumnOver(string N)
+        {
+            List<int> hash = new List<int>();
+            for (int i = 0; i < data.Count; i++)
+            {
+                if (String.Compare(N, data[i]) <= 0)
+                    hash.Add(i);
+            }
+            return hash;
         }
 
         //вытаскиваем данные соответствующие строке
