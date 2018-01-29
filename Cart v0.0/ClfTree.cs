@@ -93,7 +93,7 @@ namespace Cart_v0._0
                         Right(index, dat);
                         IEnumerable<string> disresult = leftresuts.Distinct();
                         int flag = 0;
-                        k = 0;
+                        int k = 0;
                         foreach (string dsr in disresult)
                         {
                             k++;
